@@ -1,5 +1,10 @@
 package com.leoprojetos.agregadorinvestimentos.repository;
 
-public class UserRepository {
+import java.util.UUID;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.leoprojetos.agregadorinvestimentos.entity.User;
+
+public interface UserRepository extends JpaRepository<User, UUID>{
 }

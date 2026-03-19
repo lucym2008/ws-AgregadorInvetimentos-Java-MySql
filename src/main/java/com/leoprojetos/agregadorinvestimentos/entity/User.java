@@ -101,8 +101,5 @@ public class User {
 		User other = (User) obj;
 		return Objects.equals(userId, other.userId);
 	} 
-	
-	
-	
-	
+
 } 

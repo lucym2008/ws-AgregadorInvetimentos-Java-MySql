@@ -1,5 +1,4 @@
 package com.leoprojetos.agregadorinvestimentos.controllers.DTO;
 
-public record CreateUserDTO(String name, String email, String password) {
-
+public record CreateUserDTO(String username, String email, String password) {	
 }
