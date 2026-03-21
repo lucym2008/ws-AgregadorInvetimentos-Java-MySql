@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
@@ -20,30 +21,40 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID userId;
-	
+
 	@Column(name = "username")
 	private String username;
-	
+
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "password")
 	private String password;
-	
+
 	@UpdateTimestamp
 	private Instant updateTimeStamp;
-	
+
+	// ✅ NOVO CAMPO - data de criação (só preenche na primeira vez)
+	@CreationTimestamp
+	@Column(name = "creation_timestamp", nullable = false, updatable = false)
+	private Instant creationTimestamp;
+
+	// Construtor vazio
 	public User() {
 	}
 
-	public User(UUID userId, String username, String email, String password, Instant updateTimeStamp) {
-		super();
+	// Construtor com todos os campos (ATUALIZADO)
+	public User(UUID userId, String username, String email, String password,
+				Instant updateTimeStamp, Instant creationTimestamp) {
 		this.userId = userId;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.updateTimeStamp = updateTimeStamp;
+		this.creationTimestamp = creationTimestamp;
 	}
+
+	// GETTERS E SETTERS (ADICIONAR O NOVO)
 
 	public UUID getUserId() {
 		return userId;
@@ -85,6 +96,15 @@ public class User {
 		this.updateTimeStamp = updateTimeStamp;
 	}
 
+	// ✅ GETTER E SETTER DO NOVO CAMPO
+	public Instant getCreationTimestamp() {
+		return creationTimestamp;
+	}
+
+	public void setCreationTimestamp(Instant creationTimestamp) {
+		this.creationTimestamp = creationTimestamp;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(userId);
@@ -100,6 +120,5 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(userId, other.userId);
-	} 
-
-} 
+	}
+}

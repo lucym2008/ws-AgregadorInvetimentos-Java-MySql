@@ -18,20 +18,21 @@ public class UserServices {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	public UUID createUser(CreateUserDTO createUserDTO) {
-		
+
+		// ✅ NÃO precisa passar creationTimestamp, o JPA preenche automático
 		var entity = new User(
-				null, 
-				createUserDTO.username(), 
-				createUserDTO.email(), 
-				createUserDTO.password(), 
-				Instant.now()
-				
+				null,
+				createUserDTO.username(),
+				createUserDTO.email(),
+				createUserDTO.password(),
+				Instant.now(),    // updateTimestamp
+				null              // creationTimestamp (vai ser preenchido pelo @CreationTimestamp)
 		);
-		
+
 		var userSaved = userRepository.save(entity);
-		
+
 		return userSaved.getUserId();
 	}
 	
