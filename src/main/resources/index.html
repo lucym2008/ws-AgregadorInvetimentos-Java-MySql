@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregador de Investimentos</title>
+    <link rel="stylesheet" href="/css.css">
+</head>
+<body>
+<div class="container">
+    <h1>💰 Agregador de Investimentos</h1>
+
+    <div id="messageArea"></div>
+
+    <!-- ========== USUÁRIOS ========== -->
+    <div class="section">
+        <h2>👤 Usuários</h2>
+
+        <h3>➕ Criar Usuário</h3>
+        <form id="createUserForm">
+            <input type="text" id="createUsername" placeholder="Nome" required>
+            <input type="email" id="createEmail" placeholder="E-mail" required>
+            <input type="password" id="createPassword" placeholder="Senha" required>
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <h3>📋 Lista de Usuários</h3>
+        <button id="loadUsersBtn">Carregar Usuários</button>
+        <ul id="userList"></ul>
+    </div>
+
+    <!-- ========== DETALHES DO USUÁRIO ========== -->
+    <div class="section" id="userDetailsSection" style="display: none;">
+        <h2>🔧 Detalhes do Usuário</h2>
+        <div id="userDetails"></div>
+
+        <h3>✏️ Atualizar Usuário</h3>
+        <form id="updateUserForm">
+            <input type="text" id="updateUsername" placeholder="Novo nome (opcional)">
+            <input type="password" id="updatePassword" placeholder="Nova senha (opcional)">
+            <button type="submit">Atualizar</button>
+        </form>
+
+        <button id="deleteUserBtn" style="background-color: #dc3545;">🗑️ Deletar Usuário</button>
+        <button id="closeDetailsBtn">Fechar</button>
+    </div>
+
+    <!-- ========== CONTAS ========== -->
+    <div class="section" id="accountsSection" style="display: none;">
+        <h2>🏦 Contas de <span id="selectedUserName"></span></h2>
+
+        <h3>➕ Criar Conta</h3>
+        <form id="createAccountForm">
+            <input type="text" id="accountDescription" placeholder="Descrição da conta" required>
+            <input type="text" id="accountStreet" placeholder="Rua" required>
+            <input type="number" id="accountNumber" placeholder="Número" required>
+            <button type="submit">Criar Conta</button>
+        </form>
+
+        <h3>📋 Lista de Contas</h3>
+        <button id="loadAccountsBtn">Carregar Contas</button>
+        <ul id="accountList"></ul>
+    </div>
+
+    <!-- ========== AÇÕES DA CONTA SELECIONADA ========== -->
+    <div class="section" id="selectedAccountSection" style="display: none;">
+        <h2>📈 Conta Selecionada: <span id="selectedAccountId"></span></h2>
+
+        <h3>➕ Associar Ação à Conta</h3>
+        <form id="associateStockForm">
+            <input type="text" id="stockId" placeholder="ID da Ação (ex: PETR4)" required>
+            <input type="number" id="stockQuantity" placeholder="Quantidade" required>
+            <button type="submit">Associar Ação</button>
+        </form>
+
+        <h3>📋 Ações da Conta</h3>
+        <button id="loadStocksBtn">Carregar Ações</button>
+        <ul id="stocksList"></ul>
+    </div>
+
+    <!-- ========== CRIAÇÃO DE AÇÕES ========== -->
+    <div class="section">
+        <h2>📊 Ações (Stocks)</h2>
+        <h3>➕ Criar Nova Ação</h3>
+        <form id="createStockForm">
+            <input type="text" id="stockIdInput" placeholder="ID da Ação (ex: PETR4)" required>
+            <input type="text" id="stockDescription" placeholder="Descrição (ex: Petrobras PN)" required>
+            <button type="submit">Criar Ação</button>
+        </form>
+    </div>
+</div>
+
+<script src="/script.js"></script>
+</body>
+</html>

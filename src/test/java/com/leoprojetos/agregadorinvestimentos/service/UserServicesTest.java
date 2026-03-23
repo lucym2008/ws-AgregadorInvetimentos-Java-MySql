@@ -1,7 +1,7 @@
-package com.leoprojetos.agregadorinvestimentos.services;
+package com.leoprojetos.agregadorinvestimentos.service;
 
-import com.leoprojetos.agregadorinvestimentos.controllers.DTO.CreateUserDTO;
-import com.leoprojetos.agregadorinvestimentos.controllers.DTO.UpdateUserDTO;
+import com.leoprojetos.agregadorinvestimentos.controller.dto.CreateUserDto;
+import com.leoprojetos.agregadorinvestimentos.controller.dto.UpdateUserDTO;
 import com.leoprojetos.agregadorinvestimentos.entity.User;
 import com.leoprojetos.agregadorinvestimentos.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +30,7 @@ class UserServiceTest {
     private UserRepository userRepository;
 
     @InjectMocks
-    private UserServices userService;
+    private UserService userService;
 
     @Captor
     private ArgumentCaptor<User> userArgumentCaptor;
@@ -55,7 +55,7 @@ class UserServiceTest {
                     null
             );
             doReturn(user).when(userRepository).save(userArgumentCaptor.capture());
-            var input = new CreateUserDTO(
+            var input = new CreateUserDto(
                     "username",
                     "email@email.com",
                     "123"
@@ -79,7 +79,7 @@ class UserServiceTest {
         void shouldThrowExceptionWhenErrorOccurs() {
             // Arrange
             doThrow(new RuntimeException()).when(userRepository).save(any());
-            var input = new CreateUserDTO(
+            var input = new CreateUserDto(
                     "username",
                     "email@email.com",
                     "123"

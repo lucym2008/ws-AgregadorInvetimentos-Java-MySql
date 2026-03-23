@@ -1,21 +1,17 @@
 package com.leoprojetos.agregadorinvestimentos.entity;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 @Entity
-@Table(name = "tb_user")
+@Table(name = "tb_users")
 public class User {
 
 	@Id
@@ -31,30 +27,26 @@ public class User {
 	@Column(name = "password")
 	private String password;
 
-	@UpdateTimestamp
-	private Instant updateTimeStamp;
-
-	// ✅ NOVO CAMPO - data de criação (só preenche na primeira vez)
 	@CreationTimestamp
-	@Column(name = "creation_timestamp", nullable = false, updatable = false)
 	private Instant creationTimestamp;
 
-	// Construtor vazio
+	@UpdateTimestamp
+	private Instant updateTimestamp;
+
+	@OneToMany(mappedBy = "user")
+	private List<Account> accounts = new ArrayList<>();
+
 	public User() {
 	}
 
-	// Construtor com todos os campos (ATUALIZADO)
-	public User(UUID userId, String username, String email, String password,
-				Instant updateTimeStamp, Instant creationTimestamp) {
+	public User(UUID userId, String username, String email, String password, Instant creationTimestamp, Instant updateTimestamp) {
 		this.userId = userId;
 		this.username = username;
 		this.email = email;
 		this.password = password;
-		this.updateTimeStamp = updateTimeStamp;
 		this.creationTimestamp = creationTimestamp;
+		this.updateTimestamp = updateTimestamp;
 	}
-
-	// GETTERS E SETTERS (ADICIONAR O NOVO)
 
 	public UUID getUserId() {
 		return userId;
@@ -88,15 +80,6 @@ public class User {
 		this.password = password;
 	}
 
-	public Instant getUpdateTimeStamp() {
-		return updateTimeStamp;
-	}
-
-	public void setUpdateTimeStamp(Instant updateTimeStamp) {
-		this.updateTimeStamp = updateTimeStamp;
-	}
-
-	// ✅ GETTER E SETTER DO NOVO CAMPO
 	public Instant getCreationTimestamp() {
 		return creationTimestamp;
 	}
@@ -105,20 +88,19 @@ public class User {
 		this.creationTimestamp = creationTimestamp;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(userId);
+	public Instant getUpdateTimestamp() {
+		return updateTimestamp;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		return Objects.equals(userId, other.userId);
+	public void setUpdateTimestamp(Instant updateTimestamp) {
+		this.updateTimestamp = updateTimestamp;
+	}
+
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
 	}
 }
